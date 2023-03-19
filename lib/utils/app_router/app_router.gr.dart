@@ -35,7 +35,7 @@ class AppRouter extends _i4.RootStackRouter {
     LoginRoute.name: (routeData) {
       return _i4.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i2.LoginScreen(),
+        child: _i2.LoginScreen(),
       );
     },
     SignupRoute.name: (routeData) {
