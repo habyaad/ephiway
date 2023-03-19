@@ -8,13 +8,13 @@ class OnboardingModel {
         widget: const OnBoardingPageModel(
       imageName: 'onboarding1',
       onBoardingBodyText:
-          'Organise your school activities.\nSchool data maagement with ease',
+          'Organise your school activities.\nHave your school data in your pocket',
     )),
     PageModel(
         widget: const OnBoardingPageModel(
       imageName: 'onboarding2',
       onBoardingBodyText:
-          'Organise your school activities.\nSchool data maagement with ease',
+          'School data management with ease.\nSchool data computation now seamless.',
     )),
   ];
 }
