@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       routeInformationParser: _appRouter.defaultRouteParser(),
       title: 'Flutter Demo',
       theme: ThemeData(
-
+        fontFamily: "Gilroy",
         primarySwatch: Colors.blue,
       ),
     );
