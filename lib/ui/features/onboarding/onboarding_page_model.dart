@@ -31,15 +31,18 @@ class OnBoardingPageModel extends StatelessWidget {
                 horizontal: widthSizer(45, context),
                 vertical: heightSizer(90, context),
               ),
-              child: Image.asset('assets/images/$imageName.png',),
+              child: Image.asset(
+                'assets/images/$imageName.png',
+              ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 45.0),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'EPHIWAY',
-                  style: pageTitleStyle,
+                  style: pageTitleStyle.copyWith(
+                      fontSize: widthSizer(32, context)),
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -47,12 +50,13 @@ class OnBoardingPageModel extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: widthSizer(45, context),
-                  vertical: heightSizer(90, context)),
+                  vertical: heightSizer(45, context)),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   onBoardingBodyText,
-                  style: pageInfoStyle,
+                  style:
+                      pageInfoStyle.copyWith(fontSize: widthSizer(18, context)),
                   textAlign: TextAlign.left,
                 ),
               ),
