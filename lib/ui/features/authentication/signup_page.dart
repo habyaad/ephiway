@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/models/user_model.dart';
+import '../../../core/services/auth_services.dart';
+
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -9,7 +12,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final _sigupFormKey = GlobalKey<FormState>();
 
   String _username = '';
   String _email = '';
@@ -24,7 +27,7 @@ class _SignupScreenState extends State<SignupScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
-          key: _formKey,
+          key: _sigupFormKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -90,13 +93,15 @@ class _SignupScreenState extends State<SignupScreen> {
                 color: Colors.blueAccent,
                 child: const Text('Sign up', style: TextStyle(color: Colors.white),),
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
+                  if (_sigupFormKey.currentState!.validate()) {
+                    _sigupFormKey.currentState!.save();
                     // Implement your signup logic here
                     // You can use the _username, _email, and _password variables
                     // to store the user's input and submit it to your server or database
                     // Once the signup process is complete, you can navigate the user to the login page
-                    context.router.pushNamed("/login-screen");
+                    User user = User(username: _username, email:  _email, password: _password);
+                    AuthServices.signupUser(user);
+                    //context.router.pushNamed("/login-screen");
                   }
                 },
               ),
