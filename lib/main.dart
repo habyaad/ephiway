@@ -1,7 +1,9 @@
 import 'package:ephiway/utils/app_router/app_router.gr.dart';
+import 'package:ephiway/utils/helpers.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  setupLocator();
   runApp( MyApp());
 }
 
