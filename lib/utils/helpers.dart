@@ -3,9 +3,10 @@ import 'package:logger/logger.dart';
 
 final getIt = GetIt.instance;
 
-    Future<void> setupLocator() async {
-      getIt.registerLazySingleton(() => Logger());
+Future<void> setupLocator() async {
+  getIt.registerLazySingleton(() => Logger());
 
 // Alternatively you could write it if you don't like global variables
-    // GetIt.I.registerSingleton<AppModel>(AppModel());
+  // GetIt.I.registerSingleton<AppModel>(AppModel());
 }
+
