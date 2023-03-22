@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:logger/logger.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-
 import '../../utils/helpers.dart';
 
 class DatabaseHelper {
@@ -41,48 +40,58 @@ class DatabaseHelper {
     List<Map<String, Object?>>? result = await dbClient?.query("users",
         where: "email = ? AND password = ?",
         whereArgs: [user["email"], user["password"]]);
-    if (result != null) {
-      return result;
-    }
-    return null;
+
+    return result;
+  }
+
+  Future<List<Map<String, Object?>>?> checkEmailExistence(
+      Map<String, dynamic> user) async {
+    var dbClient = await db;
+    List<Map<String, Object?>>? result = await dbClient
+        ?.query("users", where: "email = ?", whereArgs: [user["email"]]);
+
+    return result;
   }
 
   Future<int?> signUpUser(Map<String, dynamic> user) async {
     var dbClient = await db;
     try {
-      List<Map<String, Object?>>? exists = await checkUserExistence(user);
+      List<Map<String, Object?>>? exists = await checkEmailExistence(user);
       getIt<Logger>().d(exists);
       if (exists!.isEmpty) {
-        return await dbClient?.insert('users', user);
-      } else {
-        getIt<Logger>().e("email: ${user["email"]} already exist");
-        return null;
+
+        int? registered = await dbClient?.insert('users', user);
+        if(registered != null){
+          getIt<Logger>()
+              .d("${user["username"]} registered successfully at index $registered");
+          return registered;
+        }
+
       }
     } catch (e) {
       getIt<Logger>().e(e);
+      return null;
     }
     return null;
   }
 
   Future<int?> signInUser(Map<String, dynamic> user) async {
-    var dbClient = await db;
     try {
       getIt<Logger>().d(user);
-      var users = await getAllUsers();
-      getIt<Logger>().d(users);
+
       List<Map<String, Object?>>? exists = await checkUserExistence(user);
       getIt<Logger>().d(exists);
       if (exists!.isNotEmpty) {
-        getIt<Logger>().d(
-            "email: ${user["email"]} and password: ${user["password"]} exists");
-        return 0;
-      } else {
-        getIt<Logger>().e("email doesn't exist.");
-        return null;
+        getIt<Logger>().d("${user["email"]} login successful");
+        return 1;
       }
     } catch (e) {
       getIt<Logger>().e(e);
+      return null;
     }
+
+    getIt<Logger>().e("wrong credentials");
+    return null;
   }
 
   Future getAllUsers() async {
