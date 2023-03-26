@@ -1,26 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../core/models/user_model.dart';
-import '../../../core/services/auth_services.dart';
+import '../../../core/providers/user_provider.dart';
+import 'services/auth_services.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreen extends ConsumerWidget {
+  LoginScreen({super.key});
 
   final _loginFormKey = GlobalKey<FormState>();
 
   String _email = '';
+
   String _password = '';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -86,16 +83,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async{
                     if (_loginFormKey.currentState!.validate()) {
                       _loginFormKey.currentState!.save();
                       // Implement your signup logic here
                       // You can use the _username, _email, and _password variables
                       // to store the user's input and submit it to your server or database
                       // Once the signup process is complete, you can navigate the user to the login page
-                      AuthServices.signinUser({"email":_email, "password": _password});
-
-                      //context.router.pushNamed("/login-screen");
+                      final loginDetails = await AuthServices.signinUser({"email":_email, "password": _password});
+                      if(loginDetails != null){
+                        ref.read(userProvider.notifier).state = User.fromJson(loginDetails);
+                        context.router.pushNamed("/home-screen");
+                      }
                     }
 
                   },
