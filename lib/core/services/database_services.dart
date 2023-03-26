@@ -75,15 +75,16 @@ class DatabaseHelper {
     return null;
   }
 
-  Future<int?> signInUser(Map<String, dynamic> user) async {
+  Future<Map<String, Object?>?> signInUser(Map<String, dynamic> user) async {
     try {
       getIt<Logger>().d(user);
 
-      List<Map<String, Object?>>? exists = await checkUserExistence(user);
+    Map<String, Object?>? exists = await DatabaseHelper().getUser(user);
+
       getIt<Logger>().d(exists);
       if (exists!.isNotEmpty) {
         getIt<Logger>().d("${user["email"]} login successful");
-        return 1;
+        return exists;
       }
     } catch (e) {
       getIt<Logger>().e(e);
@@ -103,6 +104,21 @@ class DatabaseHelper {
     } catch (e) {
       getIt<Logger>().e(e);
     }
+  }
+
+  Future<Map<String, Object?>?> getUser(Map<String, dynamic> user) async {
+    var dbClient = await db;
+    try {
+      List<Map<String, Object?>>? foundUser = await dbClient?.query("users", where: "email = ? AND password = ?",
+          whereArgs: [user["email"], user["password"]]);
+      if(foundUser!.isNotEmpty){
+        getIt<Logger>().d(user);
+        return foundUser.first;
+      }
+    } catch (e) {
+      getIt<Logger>().e(e);
+    }
+    return null;
   }
 
 // Implement other database operations like updating, deleting, and querying users
