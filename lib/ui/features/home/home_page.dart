@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../core/models/user_model.dart';
 import '../../../core/providers/user_provider.dart';
+import '../../common_widgets/menu_button.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,7 +20,8 @@ class HomeScreen extends ConsumerWidget {
           children: [
             const SizedBox(height: 16.0),
             Text('Hello ${newUser!.username},',
-                style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
+                style: const TextStyle(
+                    fontSize: 24.0, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8.0),
             const Text('Welcome to the School Management App Dashboard.',
                 style: TextStyle(fontSize: 16.0)),
@@ -29,80 +29,39 @@ class HomeScreen extends ConsumerWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // TODO: Implement attendance functionality
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
-                    padding: const EdgeInsets.all(16.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text('Take Attendance',
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold)),
-                      Icon(Icons.check_circle),
-                    ],
-                  ),
+                MenuButton(
+                  buttonText: "Classes",
+                  icon: Icons.class_,
+                  onPressed: () {},
+                  backgroundColor: Colors.pinkAccent,
                 ),
                 const SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // TODO: Implement grade viewing functionality
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.orange,
-                    padding: const EdgeInsets.all(16.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text('View Grades',
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold)),
-                      Icon(Icons.grade),
-                    ],
-                  ),
+                MenuButton(
+                  buttonText: "Attendance",
+                  icon: Icons.check_circle,
+                  onPressed: () {},
+                  backgroundColor: Colors.green,
                 ),
                 const SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // TODO: Implement student adding functionality
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue,
-                    padding: const EdgeInsets.all(16.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text('Add Student',
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold)),
-                      Icon(Icons.add),
-                    ],
-                  ),
+                MenuButton(
+                  buttonText: "View Grades",
+                  icon: Icons.grade,
+                  onPressed: () {},
+                  backgroundColor: Colors.orange,
                 ),
                 const SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // TODO: Implement timetable viewing functionality
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                    padding: const EdgeInsets.all(16.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text('View Timetable',
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold)),
-                      Icon(Icons.schedule),
-                    ],
-                  ),
+                MenuButton(
+                  buttonText: "Add Student",
+                  icon: Icons.add,
+                  onPressed: () {},
+                  backgroundColor: Colors.blue,
+                ),
+                const SizedBox(height: 16.0),
+                MenuButton(
+                  buttonText: "Timetable'",
+                  icon: Icons.schedule,
+                  onPressed: () {},
+                  backgroundColor: Colors.purple,
                 ),
               ],
             ),
