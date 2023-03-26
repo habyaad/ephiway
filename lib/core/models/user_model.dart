@@ -1,4 +1,7 @@
-class User {
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class User  {
   User({
     this.id,
     required this.username,
@@ -13,7 +16,7 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json){
     return User(
-      id: json["id"],
+      id: json["id"].toString(),
       username: json["username"],
       email: json["email"],
       password: json["password"],
